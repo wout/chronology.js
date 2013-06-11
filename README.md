@@ -1,6 +1,8 @@
 # chronology.js
 
-A standalone micro JavaScript library for adding undo/redo functionality to apps.
+A micro JavaScript library for adding undo/redo functionality to apps.
+
+Chronology.js does not have any dependencies abd
 
 Chronology.js is licensed under the terms of the MIT License.
 
@@ -13,7 +15,7 @@ Chronology allows to create multiple instances:
 var chronology = new Chronology
 ```
 
-The default limit of redo's is `20` by default but can be set to any desired value:
+The default limit of redo's is `20` but can be set to any desired value:
 
 ```javascript
 var chronology = new Chronology({ limit: 150 })
@@ -88,9 +90,12 @@ The revert method will bring you all the way back to the beginning of time:
 chronology.revert()
 ```
 
+### Contributing
 
-
-
+Contributions are welcome but make sure of the following:
+- write concise code
+- try to use the same coding style
+- and please, write at least one spec per implementation
 
 
 
