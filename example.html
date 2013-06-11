@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>color switcher</title>
+
+    <style type="text/css">
+      body {
+        background-color: '#fff';
+        -webkit-transition-property: background-color;
+        -webkit-transition-duration: 0.2s;
+        -moz-transition-property: background-color;
+        -moz-transition-duration: 0.2s;
+        -o-transition-property: background-color;
+        -o-transition-duration: 0.2s;
+        transition-property: background-color;
+        transition-duration: 0.2s;
+      }
+      input.color {
+        text-indent: -99999em;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #fff;
+        cursor: pointer;
+      }
+    </style>
+
+  </head>
+  
+  <body>
+    <input name="undo" value="undo" type="button" onclick="chronology.undo()" />
+    <input name="redo" value="redo" type="button" onclick="chronology.redo()" />
+
+    <br/>
+    <br/>
+
+    <input name="red" value="#f00" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#f00' })" style="background-color:#f00;" class="color" />
+    <input name="pink" value="#f06" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#f06' })" style="background-color:#f06;" class="color" />
+    <input name="light grey" value="#ccc" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#ccc' })" style="background-color:#ccc;" class="color" />
+    <input name="medium grey" value="#666" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#666' })" style="background-color:#666;" class="color" />
+    <input name="dark grey" value="#222" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#222' })" style="background-color:#222;" class="color" />
+
+    <script type="text/javascript" src="chronology.js"></script>
+    <script type="text/javascript">
+      // Create instance
+      var body = document.getElementsByTagName('body')[0]
+        , chronology = new Chronology
+
+      // Set current state
+      chronology.begin(function() {
+        body.style.backgroundColor = '#fff'
+      })
+
+
+    </script>
+  </body>
+
+</html>

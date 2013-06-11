@@ -90,6 +90,9 @@ The revert method will bring you all the way back to the beginning of time:
 chronology.revert()
 ```
 
+### Example
+Visit the [example page](http://chronology.wout.co.uk/) to see it in action.
+
 ### Contributing
 
 Contributions are welcome but make sure of the following:
