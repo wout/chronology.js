@@ -29,29 +29,65 @@
   </head>
   
   <body>
-    <input name="undo" value="undo" type="button" onclick="chronology.undo()" />
-    <input name="redo" value="redo" type="button" onclick="chronology.redo()" />
+    <input id="undo" class="button" name="undo" value="undo" type="button" onclick="chronology.undo()" disabled="disabled" />
+    <input id="redo" class="button" name="redo" value="redo" type="button" onclick="chronology.redo()" disabled="disabled" />
+    <input id="revert" class="button" name="revert" value="revert" type="button" onclick="chronology.revert()" disabled="disabled" />
+    <input id="clear" class="button" name="clear" value="clear" type="button" onclick="chronology.clear()" disabled="disabled" />
 
     <br/>
     <br/>
 
-    <input name="red" value="#f00" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#f00' })" style="background-color:#f00;" class="color" />
-    <input name="pink" value="#f06" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#f06' })" style="background-color:#f06;" class="color" />
-    <input name="light grey" value="#ccc" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#ccc' })" style="background-color:#ccc;" class="color" />
-    <input name="medium grey" value="#666" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#666' })" style="background-color:#666;" class="color" />
-    <input name="dark grey" value="#222" type="button" onclick="chronology.add(function(){ body.style.backgroundColor = '#222' })" style="background-color:#222;" class="color" />
+    <input id="red" name="red" value="#f00" type="button" style="background-color:#f00;" class="color"  />
+    <input id="pink" name="pink" value="#f06" type="button" style="background-color:#f06;" class="color" />
+    <input id="light" name="light grey" value="#ccc" type="button" style="background-color:#ccc;" class="color" />
+    <input id="medium" name="medium grey" value="#666" type="button" style="background-color:#666;" class="color" />
+    <input id="dark" name="dark grey" value="#222" type="button" style="background-color:#222;" class="color" />
 
+    <script type="text/javascript" src="lib/zepto.min.js"></script>
     <script type="text/javascript" src="chronology.js"></script>
     <script type="text/javascript">
       // Create instance
-      var body = document.getElementsByTagName('body')[0]
-        , chronology = new Chronology
+      var body = $('body')[0]
+        , chronology = new Chronology({
+            onEnd: function() { 
+              $('#redo').prop('disabled', true)
+            }
+          , onRedo: function() { 
+              $('#undo').prop('disabled', false) 
+            }
+          , onBegin: function() { 
+              $('#undo').prop('disabled', true) 
+            }
+          , onUndo: function() { 
+              $('#redo').prop('disabled', false) 
+            }
+          , onAdd: function() { 
+              $('#undo').prop('disabled', false)
+              $('#clear').prop('disabled', false)
+              $('#revert').prop('disabled', false)
+            }
+          , onClear: function() {
+              $('input.button').prop('disabled', true)
+            }
+          })
 
-      // Set current state
-      chronology.begin(function() {
-        body.style.backgroundColor = '#fff'
+      // Add button actions
+      ;['red', 'pink', 'light', 'medium', 'dark'].forEach(function(button) {
+        /* add button action */
+        $('#' + button).click(function() {
+          var down = $('body').css('background-color')
+            , up = this.value
+          
+          chronology.add({
+            up: function(){ 
+              $('body').css('background-color', up) 
+            }
+          , down: function(){ 
+              $('body').css('background-color', down) 
+            }
+          })
+        })
       })
-
 
     </script>
   </body>

@@ -1,7 +1,7 @@
-// chronology.js v0.1 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
+// chronology.js v0.2 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
 
 (function() {
-
+  // Main class
   this.Chronology = function(settings) {
     /* default settings */
     this.settings = {
@@ -24,86 +24,77 @@
     return this
   }
 
-  // Begin the process
-  Chronology.prototype.begin = function(action) {
-    /* start with a blank slate */
-    this.clear()
-
-    /* set current action */
-    this.current = action
-
-    return this
-  }
-
   // Add occurence
-  Chronology.prototype.add = function(action) {
+  Chronology.prototype.add = function(occurence) {
     /* clear redo stack */
     this.redos = []
 
-    /* store current action */
-    if (this.current)
-      this.undos.unshift(this.current)
+    /* typecast occurence */
+    if (!occurence instanceof Chronology.Occurence)
+      occurence = new Chronology.Occurence(occurence)
 
-    /* set new current action */
-    this.current = action
+    /* store new occurence */
+    this.undos.unshift(occurence)
 
     /* call new current action */
     if (this.settings.call)
-      this.current()
+      occurence.up()
 
     /* trim the undos stack to length of limit */
     if (this.settings.limit)
       this.undos.splice(this.settings.limit)
 
     /* call back */
-    if (typeof this.settings.onadd == 'function')
-      this.settings.onadd(this)
+    if (typeof this.settings.onAdd == 'function')
+      this.settings.onAdd(this)
 
     return this
   }
 
   // Set the values to their initial state
   Chronology.prototype.clear = function() {
+    /* clear arrays, retain state */
     this.redos = []
     this.undos = []
 
-    delete this.current
+    /* call back for action */
+    if (typeof this.settings.onClear == 'function')
+      this.settings.onClear(this)
 
     return this
   }
 
   // Set the values to their initial state
   Chronology.prototype.revert = function() {
-    /* get initial state */
-    var initial = this.undos[this.undos.length - 1] || this.current
-    
+    var occurence
+
+    /* walk back to initial state */
+    while(occurence = this.undos.shift())
+      occurence.down()
+
     /* clear everything out */
-    this.clear()
-
-    /* call the initial state */
-    if (typeof initial == 'function') {
-      this.current = initial
-      this.current()
-    }
-
-    return this
+    return this.clear()
   }
 
   // Undo last added action
   Chronology.prototype.undo = function() {
-    if (this.undos.length > 0) {
-      /* move current action to redos */
-      this.redos.unshift(this.current)
-  
-      /* set previous current action */
-      this.current = this.undos.shift()
-  
-      /* call new current action */
-      this.current()
+    var occurence
 
-      /* call back */
-      if (typeof this.settings.onundo == 'function')
-        this.settings.onundo(this)
+    /* get most recent undo */
+    if (occurence = this.undos.shift()) {
+      /* move current action to redos */
+      this.redos.unshift(occurence)
+  
+      /* restore to previous state */
+      occurence.down()
+    
+      /* call back for action */
+      if (typeof this.settings.onUndo == 'function')
+        this.settings.onUndo(this)
+
+      /* call back when reaching beginning of time */
+      if (this.undos.length == 0 && typeof this.settings.onBegin == 'function')
+        this.settings.onBegin(this)
     }
 
     return this
@@ -111,24 +102,33 @@
 
   // Redo the last action
   Chronology.prototype.redo = function() {
-    if (this.redos.length > 0) {
-      /* move current action to undos */
-      this.undos.unshift(this.current)
-  
-      /* set previous current action */
-      this.current = this.redos.shift()
-  
-      /* call new current action */
-      this.current()
+    var occurence
 
-      /* call back */
-      if (typeof this.settings.onredo == 'function')
-        this.settings.onredo(this)
+    /* get most recent redo */
+    if (occurence = this.redos.shift()) {
+      /* move current action to undos */
+      this.undos.unshift(occurence)
+  
+      /* restore to next state */
+      occurence.up()
+
+      /* call back for action */
+      if (typeof this.settings.onRedo == 'function')
+        this.settings.onRedo(this)
+
+      /* call back when reaching beginning of time */
+      if (this.redos.length == 0 && typeof this.settings.onEnd == 'function')
+        this.settings.onEnd(this)
     }
     
     return this
   }
 
+  // Occurence class
+  Chronology.Occurence = function(states) {
+    states    = states      || {}
+    this.up   = states.up   || function() {}
+    this.down = states.down || function() {}
+  }
+
 })(this)
-
-

@@ -6,7 +6,7 @@
 , "keywords":     ["history", "undo", "redo", "state", "memory"]
 , "author":       "Wout Fierens <wout@impinc.co.uk>"
 , "main":         "chronology.js"
-, "version":      "v0.1"
+, "version":      "v0.2"
 , "jam": {
     "include": [
       "chronology.js"
