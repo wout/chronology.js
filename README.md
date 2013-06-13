@@ -21,7 +21,7 @@ The default limit of redo's is `20` but can be set to any desired value:
 var chronology = new Chronology({ limit: 150 })
 ```
 
-Setting it to `0` will result an unlimited redo:
+Setting it to `0` will result in an unlimited redo:
 
 ```javascript
 var chronology = new Chronology({ limit: 0 })
@@ -35,7 +35,7 @@ chronology.set({ limit: 300 })
 ```
 
 ### Adding an occurence
-Let's say we have an html document and the visitor of that page can change the background color using a small color palette ([like thie one](http://chronology.wout.co.uk/)). Initially the background color is white. The visitor also has an undo and redo button to revert any changes made. We need to make sure that every time the visitor changes the color of the page, that change is recorded. This can be done with the `add()` method. Let's call the objects we add “occurences”. Every occurence has an `up()` and `down()` method. The up method will account for the next state, the down method will revert that change:
+Let's say we have an html document and the visitor of that page can change the background color using a small color palette ([like this one](http://chronology.wout.co.uk/)). Initially the background color is white. The visitor also has an undo and redo button to revert any changes made. We need to make sure that every time the visitor changes the color of the page, that change is recorded. This can be done with the `add()` method. Let's call the objects we add “occurences”. Every occurence has an `up()` and `down()` method. The `up()` method will account for the next state, the `down()` method will revert that change:
 
 ```javascript
 var body  = document.getElementsByTagName('body')[0]
@@ -54,13 +54,13 @@ chronology.set({ call: false })
 ```
 
 ### A word about occurences
-Every occurence you add will be converted to an instance of `Chronology.Occurence`. These instances already have a `up` and `down` method, each with an empty function attached to it. So you might as well pass an empty object invoking the callbacks:
+Every occurence you add will be converted to an instance of `Chronology.Occurence` (if it isn't already). These instances already have a `up` and `down` method, each with an empty function attached to it. So you might as well pass an empty object invoking the callbacks:
 
 ```javascript
 chronology.add({})
 ```
 
-This allows you to create a one-directional chronology. And the best thing is that you will be able to add your own methods to the `Chronology.Occurence` class:
+This allows you to create a one-directional chronology for example. And the best thing about it is that you will be able to add your own methods to the `Chronology.Occurence` class:
 
 ```javascript
 Chronology.Occurence.prototype.myMethod = function() {
@@ -90,7 +90,7 @@ chronology.clear()
 ```
 
 ### Revert to the beginning
-The `revert()` is an extended version of the `clear()`. But before calling `clear()` it will call all the `down()` actions of stored undo's:
+The `revert()` is an extended version of the `clear()`. But before calling `clear()` it will call `down()` on every occurence in the undo stack:
 
 ```javascript
 chronology.revert()
@@ -103,54 +103,66 @@ Nearly every action has one or more callback's.
 Will be called every time an occurence is added:
 
 ```javascript
-chronology.set({ onAdd: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({
+  onAdd: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 #### onUndo
 Will be called at every undo:
 
 ```javascript
-chronology.set({ onUndo: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({
+  onUndo: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 #### onBegin
 Will be called when the beginning of the undo stack has been reached:
 
 ```javascript
-chronology.set({ onBegin: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({
+  onBegin: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 #### onRedo
 Will be called at every redo:
 
 ```javascript
-chronology.set({ onRedo: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({ 
+  onRedo: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 #### onEnd
 Will be called when the end of the redo stack has been reached:
 
 ```javascript
-chronology.set({ onEnd: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({
+  onEnd: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 #### onClear
 Will be called when in case of `revert()` or `clear()`:
 
 ```javascript
-chronology.set({ onClear: function(occurence) {
-  // ... your actions ...
-} })
+chronology.set({
+  onClear: function(occurence) {
+    // ... your actions ...
+  }
+})
 ```
 
 ### Example
