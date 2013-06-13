@@ -64,7 +64,7 @@ This allows you to create a one-directional chronology. And the best thing is th
 
 ```javascript
 Chronology.Occurence.prototype.myMethod = function() {
-  ... your actions ...
+  // ... your actions ...
 }
 ```
 
@@ -94,6 +94,63 @@ The `revert()` is an extended version of the `clear()`. But before calling `clea
 
 ```javascript
 chronology.revert()
+```
+
+### Callbacks
+Nearly every action has one or more callback's.
+
+#### onAdd
+Will be called every time an occurence is added:
+
+```javascript
+chronology.set({ onAdd: function(occurence) {
+  // ... your actions ...
+} })
+```
+
+#### onUndo
+Will be called at every undo:
+
+```javascript
+chronology.set({ onUndo: function(occurence) {
+  // ... your actions ...
+} })
+```
+
+#### onBegin
+Will be called when the beginning of the undo stack has been reached:
+
+```javascript
+chronology.set({ onBegin: function(occurence) {
+  // ... your actions ...
+} })
+```
+
+#### onRedo
+Will be called at every redo:
+
+```javascript
+chronology.set({ onRedo: function(occurence) {
+  // ... your actions ...
+} })
+```
+
+#### onEnd
+Will be called when the end of the redo stack has been reached:
+
+```javascript
+chronology.set({ onEnd: function(occurence) {
+  // ... your actions ...
+} })
+```
+
+#### onClear
+Will be called when in case of `revert()` or `clear()`:
+
+```javascript
+chronology.set({ onClear: function(occurence) {
+  // ... your actions ...
+} })
 ```
 
 ### Example
