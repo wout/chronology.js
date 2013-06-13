@@ -46,7 +46,7 @@
 
     /* call back */
     if (typeof this.settings.onAdd == 'function')
-      this.settings.onAdd(this)
+      this.settings.onAdd(occurence)
 
     return this
   }
@@ -59,7 +59,7 @@
 
     /* call back for action */
     if (typeof this.settings.onClear == 'function')
-      this.settings.onClear(this)
+      this.settings.onClear()
 
     return this
   }
@@ -90,11 +90,11 @@
     
       /* call back for action */
       if (typeof this.settings.onUndo == 'function')
-        this.settings.onUndo(this)
+        this.settings.onUndo(occurence)
 
       /* call back when reaching beginning of time */
       if (this.undos.length == 0 && typeof this.settings.onBegin == 'function')
-        this.settings.onBegin(this)
+        this.settings.onBegin(occurence)
     }
 
     return this
@@ -114,11 +114,11 @@
 
       /* call back for action */
       if (typeof this.settings.onRedo == 'function')
-        this.settings.onRedo(this)
+        this.settings.onRedo(occurence)
 
       /* call back when reaching beginning of time */
       if (this.redos.length == 0 && typeof this.settings.onEnd == 'function')
-        this.settings.onEnd(this)
+        this.settings.onEnd(occurence)
     }
     
     return this

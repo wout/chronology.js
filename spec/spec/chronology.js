@@ -97,15 +97,16 @@ describe('Chronology', function() {
     })
   
     it('invokes the onAdd callback when defined', function() {
-      chronology = new Chronology({ onAdd: function() { currentState = 'onAdd called back' } })
+      var arg
+      chronology = new Chronology({
+        onAdd: function(c) {
+          currentState = 'onAdd called back'
+          arg = c
+        }
+      })
       chronology.add(a1)
       expect(currentState).toBe('onAdd called back')
-    })
-  
-    it('passes itself as the fist argument of the onAdd callback', function() {
-      chronology = new Chronology({ onAdd: function(self) { currentState = self } })
-      chronology.add(a1)
-      expect(currentState).toBe(chronology)
+      expect(arg).toBe(a1)
     })
   
   })
@@ -132,7 +133,7 @@ describe('Chronology', function() {
       })
       chronology.add(a1).add(a2).add(a3).clear()
       expect(currentState).toBe('onClear called back')
-      expect(arg).toBe(chronology)
+      expect(arg).toBe(undefined)
     })
   
   })
@@ -193,7 +194,7 @@ describe('Chronology', function() {
       })
       chronology.add(a1).add(a2).add(a3).undo()
       expect(currentState).toBe('onUndo called back')
-      expect(arg).toBe(chronology)
+      expect(arg).toBe(a3)
     })
 
     it('invokes the onBegin callback when reaching the beginning of time', function() {
@@ -206,7 +207,7 @@ describe('Chronology', function() {
       })
       chronology.add(a1).add(a2).add(a3).undo().undo().undo()
       expect(currentState).toBe('onBegin called back')
-      expect(arg).toBe(chronology)
+      expect(arg).toBe(a1)
     })
 
     it('does not invoke the onBegin callback when not reaching the beginning of time', function() {
@@ -264,7 +265,7 @@ describe('Chronology', function() {
     it('passes itself as the fist argument of the onRedo callback', function() {
       chronology = new Chronology({ onRedo: function(self) { currentState = self } })
       chronology.add(a1).add(a2).add(a3).undo().redo()
-      expect(currentState).toBe(chronology)
+      expect(currentState).toBe(a3)
     })
 
     it('invokes the onEnd callback when reaching the beginning of time', function() {
@@ -277,7 +278,7 @@ describe('Chronology', function() {
       })
       chronology.add(a1).add(a2).add(a3).undo().undo().redo().redo()
       expect(currentState).toBe('onEnd called back')
-      expect(arg).toBe(chronology)
+      expect(arg).toBe(a3)
     })
 
     it('does not invoke the onEnd callback when not reaching the beginning of time', function() {
