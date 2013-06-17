@@ -168,6 +168,9 @@ chronology.set({
 ### Example
 Visit the [example page](http://chronology.wout.co.uk/) to see it in action.
 
+### Loaders
+chronology.js also supports AMD and CommonJS.
+
 ### Contributing
 
 Contributions are welcome but make sure of the following:

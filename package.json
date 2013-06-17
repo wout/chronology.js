@@ -1,37 +1,37 @@
 {
-  "name":         "chronology.js"
-, "description":  "A standalone micro JavaScript library for adding undo/redo functionality to apps."
-, "url":          "https://github.com/wout/chronology.js"
-, "homepage":     "https://github.com/wout/chronology.js"
-, "keywords":     ["history", "undo", "redo", "state", "memory"]
-, "author":       "Wout Fierens <wout@impinc.co.uk>"
-, "main":         "chronology.js"
-, "version":      "v0.2"
-, "jam": {
+  "name":         "chronology.js",
+  "description":  "A micro JavaScript library for adding undo/redo functionality to apps.",
+  "url":          "https://github.com/wout/chronology.js",
+  "homepage":     "https://github.com/wout/chronology.js",
+  "keywords":     ["history", "undo", "redo", "state", "memory"],
+  "author":       "Wout Fierens <wout@wout.co.uk>",
+  "main":         "chronology.js",
+  "version":      "v0.3",
+  "jam": {
     "include": [
-      "chronology.js"
-    , "README.md"
-    , "MIT-LICENSE"
+      "chronology.js",
+      "README.md",
+      "MIT-LICENSE"
     ]
-  }
-, "maintainers": [
+  },
+  "maintainers": [
     {
-      "name":     "Wout Fierens"
-    , "email":    "wout@impinc.co.uk"
-    , "web":      "http://impinc.co.uk"
+      "name":     "Wout Fierens",
+      "email":    "wout@impinc.co.uk",
+      "web":      "http://impinc.co.uk"
     }
-  ]
-, "licenses": [
+  ],
+  "licenses": [
     {
-      "type":     "MIT"
-    , "url":      "http://www.opensource.org/licenses/mit-license.php"
+      "type":     "MIT",
+      "url":      "http://www.opensource.org/licenses/mit-license.php"
     }
-  ]
-, "repositories": [
+  ],
+  "repositories": [
     {
-      "type":     "git"
-    , "url":      "https://github.com/wout/chronology.js"
+      "type":     "git",
+      "url":      "https://github.com/wout/chronology.js"
     }
-  ]
-, "github":       "https://github.com/wout/chronology.js"
+  ],
+  "github":       "https://github.com/wout/chronology.js"
 }

@@ -1,8 +1,8 @@
-// chronology.js v0.2 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
+// chronology.js v0.3 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
 
-(function() {
+;(function() {
   // Main class
-  this.Chronology = function(settings) {
+  var Chronology = function(settings) {
     /* default settings */
     this.settings = {
       limit:  20
@@ -131,4 +131,12 @@
     this.down = states.down || function() {}
   }
 
-})(this)
+  // Use AMD or CommonJS, fall back on global scope if both are not present.
+  if (typeof define === 'function' && define.amd)
+    define(function() { return Chronology })
+  else if (typeof exports !== 'undefined')
+    exports.Chronology = Chronology
+  else
+    this.Chronology = Chronology
+
+}).call(this)

@@ -295,8 +295,24 @@ describe('Chronology', function() {
     })
   
   })
+  
+  describe('goTo()', function() {
+
+    xit('goes to a given index in the undo stack with a positive number', function() {
+      chronology.add(a1).add(a2).add(a3).goTo(1)
+      expect(currentState).toBe('state2')
+    })
+
+  })
 
 })
+
+
+
+
+
+
+
 
 
 
