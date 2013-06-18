@@ -2,9 +2,7 @@
 
 A micro JavaScript library for adding undo/redo functionality to apps.
 
-Chronology.js does not have any dependencies.
-
-Chronology.js is licensed under the terms of the MIT License.
+Chronology.js does not have any dependencies and is licensed under the terms of the MIT License.
 
 ## Usage
 
