@@ -1,6 +1,6 @@
 # chronology.js
 
-A micro () JavaScript library for adding undo/redo functionality to apps.
+A micro (0.7kB) JavaScript library for adding undo/redo functionality to apps.
 
 Chronology.js does not have any dependencies and is licensed under the terms of the MIT License.
 
