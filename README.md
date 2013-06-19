@@ -45,11 +45,24 @@ chronology.add({
 })
 ```
 
+### Disabling automatic invocation of `up()` 
 Note that `add()` will both call the `up()` method for that occurence and store it. Changing the `call` setting to `false` in your chronology instance will disable calling when adding an occurence:
 
 ```javascript
 chronology.set({ call: false })
 ```
+
+But this can also be achieved locally by setting `call` in the occurence to `false`:
+
+```javascript
+chronology.add({
+  up:   function() { body.style.backgroundColor = '#f00' }
+, down: function() { body.style.backgroundColor = color }
+, call: false
+})
+```
+
+Defining `call` in the occurence will override the global `call` settings. So when `call` is set to `false` globally but set to `true` in the occurence, the `up` function will be called.
 
 ### A word about occurences
 Every occurence you add will be converted to an instance of `Chronology.Occurence` (if it isn't already). These instances already have a `up` and `down` method, each with an empty function attached to it. So you might as well pass an empty object invoking the callbacks:

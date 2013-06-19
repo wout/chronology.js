@@ -28,6 +28,7 @@ describe('Chronology', function() {
   
   beforeEach(function() {
     chronology = new Chronology
+    a0.up()
   })
   
   describe('instantiation', function() {
@@ -107,6 +108,31 @@ describe('Chronology', function() {
       chronology.add(a1)
       expect(currentState).toBe('onAdd called back')
       expect(arg).toBe(a1)
+    })
+
+    it('does call "up" when adding an occurence', function() {
+      chronology.add(a1)
+      expect(currentState).toBe('state1')
+    })
+
+    it('does not call "up" when adding an occurence with calling disabled globally', function() {
+      chronology.set({ call: false }).add(a1)
+      expect(currentState).toBe('initial state')
+    })
+
+    it('does not call "up" when adding an occurence with calling disabled locally', function() {
+      var nocall = a1
+      nocall.call = false
+      chronology.add(a1)
+      expect(currentState).toBe('initial state')
+    })
+
+    it('does call "up" when calling is disabled globally but enabled locally', function() {
+      var nocall = a1
+      nocall.call = true
+      chronology.set({ call: false }).add(nocall)
+      console.log(nocall)
+      expect(currentState).toBe('state1')
     })
   
   })
