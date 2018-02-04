@@ -1,4 +1,4 @@
-// chronology.js v0.4 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
+// chronology.js v0.3 - Copyright (c) 2013 Wout Fierens - Licensed under the MIT license
 
 ;(function() {
   // Main class
@@ -37,7 +37,7 @@
     this.undos.unshift(occurence)
 
     /* call new current action */
-    if (occurence.call === true || (typeof occurence.call == 'undefined' && this.settings.call === true))
+    if (this.settings.call)
       occurence.up()
 
     /* trim the undos stack to length of limit */
