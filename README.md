@@ -33,7 +33,7 @@ chronology.set({ limit: 300 })
 ```
 
 ### Adding an occurence
-Let's say we have an html document and the visitor of that page can change the background color using a small color palette ([like this one](http://chronology.wout.co.uk/)). Initially the background color is white. The visitor also has an undo and redo button to revert any changes made. We need to make sure that every time the visitor changes the color of the page, that change is recorded. This can be done with the `add()` method. Let's call the objects we add “occurences”. Every occurence has an `up()` and `down()` method. The `up()` method will account for the next state, the `down()` method will revert that change:
+Let's say we have an html document and the visitor of that page can change the background color using a small color palette ([like this one](wout.github.io/chronology.js/)). Initially the background color is white. The visitor also has an undo and redo button to revert any changes made. We need to make sure that every time the visitor changes the color of the page, that change is recorded. This can be done with the `add()` method. Let's call the objects we add “occurences”. Every occurence has an `up()` and `down()` method. The `up()` method will account for the next state, the `down()` method will revert that change:
 
 ```javascript
 var body  = document.getElementsByTagName('body')[0]
